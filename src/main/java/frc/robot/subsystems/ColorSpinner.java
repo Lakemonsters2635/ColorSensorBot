@@ -75,10 +75,10 @@ public class ColorSpinner extends SubsystemBase{
         //return drive.getEncoder().getPosition();
         return 0;
     }
-    public Color getColor(){
-        return matcher.get_color();
+    // public Color getColor(){
+    //    // return matcher.get_color();
         
-    }
+    // }
     public void StartRotation() {
         //if a color wheel operation is going, don't change it
       //  if(seq.isRunning() == true) return;

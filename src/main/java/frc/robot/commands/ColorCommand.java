@@ -18,14 +18,15 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class ColorCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ColorMatcher m_subsystem;
-
+  private String m_targetColor;
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ColorCommand(ColorMatcher subsystem) {
+  public ColorCommand(ColorMatcher subsystem, String targetColor) {
     m_subsystem = subsystem;
+    m_targetColor = targetColor;
     // Use addRequirements() here to declare subsystem dependencies.
     //addRequirements(subsystem);
   }
@@ -40,7 +41,7 @@ public class ColorCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   Color color =  m_subsystem.get_color();
+   String color =  m_subsystem.get_color();
   // System.out.println(color.toString());
   }
 
@@ -52,6 +53,6 @@ public class ColorCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return m_subsystem.isFinished(m_targetColor);
   }
 }

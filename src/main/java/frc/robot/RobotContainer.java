@@ -8,11 +8,14 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.commands.ColorCommand;
 import frc.robot.subsystems.ColorMatcher;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -24,7 +27,9 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ColorMatcher m_exampleSubsystem = new ColorMatcher();
 
-  private final ColorCommand m_autoCommand = new ColorCommand(m_exampleSubsystem);
+  private final ColorCommand m_autoCommand = new ColorCommand(m_exampleSubsystem, "Red");
+  final Joystick leftStick = new Joystick(0);
+  JoystickButton colorButton = new JoystickButton(leftStick, 1);
 
 
 
@@ -43,6 +48,8 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    colorButton.toggleWhenPressed(m_autoCommand);
+    
   }
 
 
