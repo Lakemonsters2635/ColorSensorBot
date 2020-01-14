@@ -57,16 +57,13 @@ public class ColorMatcher {
     m_colorMatcher.setConfidenceThreshold(0.955);
   }
 
-  public boolean isFinished(String targetColor){
-    String colorFound = get_color();
-    if (colorFound.equals(targetColor)){
-      System.out.println ("Match Found");
-
-      return true;
-    }
-    return false;
+  public boolean isFinished(Color targetColor){
+    Color colorFound = get_color();
+    //NOTE: Discuss the following with students
+    //What is the difference between comparing objects with "==" or "colorFound.equals"
+    return (colorFound.equals(targetColor));
   }
-  public String get_color() {
+  public Color get_color() {
     /**
      * The method GetColor() returns a normalized color value from the sensor and
      * can be useful if outputting the color to an RGB LED or similar. To read the
@@ -114,7 +111,10 @@ public class ColorMatcher {
     SmartDashboard.putNumber("Blue", detectedColor.blue);
     SmartDashboard.putString("Detected Color", colorString);
     //FireLog.log("detected_color", colorString);
-   
-     return colorString;
+    if (match != null) {
+      return match.color;
+    } else {
+      return Color.kBlack;
+    }
   }
 }

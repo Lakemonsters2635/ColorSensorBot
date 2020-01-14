@@ -25,9 +25,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ColorMatcher m_exampleSubsystem = new ColorMatcher();
+  private final ColorMatcher m_colorMatcherSubsystem = new ColorMatcher();
 
-  private final ColorCommand m_autoCommand = new ColorCommand(m_exampleSubsystem, "Red");
+  private final ColorCommand m_autoCommand = new ColorCommand(m_colorMatcherSubsystem);
   final Joystick leftStick = new Joystick(0);
   JoystickButton colorButton = new JoystickButton(leftStick, 1);
 
