@@ -9,7 +9,6 @@ package frc.robot.commands;
 
 import frc.robot.model.FMSInfo;
 import frc.robot.subsystems.ColorMatcher;
-import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -87,7 +86,12 @@ public class ColorCommand extends CommandBase {
       System.out.println("Command initalization failed. Finished immediately.");
       return true;
     }
-    return m_colorMatcher.isFinished(m_targetColor);
+
+    boolean colorFound =  m_colorMatcher.isFinished(m_targetColor);
+    if (colorFound) {
+      System.out.println("Color '" +  m_fmsInfo.controlPanelTargetColor + "' found.");
+    }
+    return colorFound;
   }
 
 
