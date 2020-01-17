@@ -78,6 +78,17 @@ public class ColorSpinner extends SubsystemBase{
         colorSpinnerMotor.set(1);
     }
 
+    public boolean spinFinished(){
+        Color colorFound = matcher.get_color();
+        //NOTE: Discuss the following with students
+        //What is the difference between comparing objects with "==" or "colorFound.equals"
+        boolean isFinished = (colorFound.equals(m_targetColor));
+
+        if (isFinished){
+            colorSpinnerMotor.set(0);
+        }
+        return isFinished;
+    }
     public void determineTargetColor(){
         FMSInfo fmsInfo = getFMSInfo();
         if (fmsInfo.isInitalized) {

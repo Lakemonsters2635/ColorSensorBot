@@ -63,7 +63,7 @@ public class ColorCommand extends CommandBase {
       return true;
     }
 
-    return false;
+    return m_colorSpinner.spinFinished();
     // boolean colorFound =  m_colorSpinner.isFinished(m_targetColor);
     // if (colorFound) {
     //   System.out.println("Color '" +  m_fmsInfo.controlPanelTargetColor + "' found.");
