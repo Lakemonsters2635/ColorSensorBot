@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import frc.robot.model.FMSInfo;
 import frc.robot.subsystems.ColorMatcher;
+import frc.robot.subsystems.ColorSpinner;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -18,7 +19,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class ColorCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final ColorMatcher m_colorMatcher;
+  private final ColorSpinner m_colorSpinner;
   private FMSInfo m_fmsInfo;
   private Color m_targetColor;
   private boolean m_CommandInitializationFailed = false;
@@ -27,8 +28,8 @@ public class ColorCommand extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ColorCommand(ColorMatcher subsystem) {
-    m_colorMatcher = subsystem;
+  public ColorCommand(ColorSpinner subsystem) {
+    m_colorSpinner = subsystem;
  
     // Use addRequirements() here to declare subsystem dependencies.
     //addRequirements(subsystem);
@@ -36,41 +37,16 @@ public class ColorCommand extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-
-     m_fmsInfo = getFMSInfo();
-    if (m_fmsInfo.isInitalized) {
-      switch(m_fmsInfo.controlPanelTargetColor) {
-        case 'R':
-          m_targetColor = ColorMatcher.kRedTarget;
-          break;
-        case 'G':
-          m_targetColor = ColorMatcher.kGreenTarget;
-          break;
-        case 'B':
-          m_targetColor = ColorMatcher.kBlueTarget;
-          break;   
-        case 'Y':
-        m_targetColor = ColorMatcher.kYellowTarget;
-          break;                     
-        default:
-          m_CommandInitializationFailed = true;
-      }
-
+  public void initialize() {    
+    m_colorSpinner.determineTargetColor();
       System.out.println("color command initalized");
-    } else {
-      System.out.println("Could not get color info from FMS");
-      m_CommandInitializationFailed = true;
-    }
-
-   
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     //FHE: Do we need this?
-    m_colorMatcher.get_color();
+    m_colorSpinner.spinToTargetColor();
   }
 
   // Called once the command ends or is interrupted.
@@ -87,11 +63,12 @@ public class ColorCommand extends CommandBase {
       return true;
     }
 
-    boolean colorFound =  m_colorMatcher.isFinished(m_targetColor);
-    if (colorFound) {
-      System.out.println("Color '" +  m_fmsInfo.controlPanelTargetColor + "' found.");
-    }
-    return colorFound;
+    return false;
+    // boolean colorFound =  m_colorSpinner.isFinished(m_targetColor);
+    // if (colorFound) {
+    //   System.out.println("Color '" +  m_fmsInfo.controlPanelTargetColor + "' found.");
+    // }
+    // return colorFound;
   }
 
 

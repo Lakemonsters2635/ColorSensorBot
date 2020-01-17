@@ -21,4 +21,7 @@ public class PortMap {
     public static final int COLORWHEEL_SOLENOID = 1;
     public static final int SHIFT_SOLENOID = 2;
     public static final int CLIMB_SOLENOID = 3;
+
+    //MOTORS
+    public static final int COLOR_SPINNER_MOTOR = 1;
 }

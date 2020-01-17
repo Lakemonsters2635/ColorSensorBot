@@ -3,6 +3,8 @@ package frc.robot.subsystems;
 // import com.revrobotics.CANSparkMax;
 // import com.revrobotics.CANSparkMax.IdleMode;
 // import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+//import  com.
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.ColorSensorV3;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -10,6 +12,7 @@ import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.PortMap;
+import frc.robot.model.FMSInfo;
 //import frc.robot.steps.FindColorWheelSlot;
 //import frc.robot.steps.SpinColorWheel;
 //import frc.robot.subsystems.Intake.State;
@@ -21,7 +24,13 @@ public class ColorSpinner extends SubsystemBase{
    // Solenoid drop = new Solenoid(PortMap.COLORWHEEL_SOLENOID);
   //  AutonomousSequence seq = new AutonomousSequence();
 
+    public ColorSpinner(){
+        colorSpinnerMotor = new WPI_TalonSRX(PortMap.COLOR_SPINNER_MOTOR);
+    }
+
     ColorMatcher matcher = new ColorMatcher();
+
+    private Color m_targetColor; 
 
     Constants constants = Constants.getConstants();
 
@@ -31,7 +40,7 @@ public class ColorSpinner extends SubsystemBase{
         COLOR_ROTATE,
         COLOR_ROTATE_FINAL,
     };
-
+    WPI_TalonSRX colorSpinnerMotor;
     State state = State.DISABLED;
     Color expectedColor = ColorMatcher.kRedTarget;
     double target_rotation = 0;
@@ -43,9 +52,7 @@ public class ColorSpinner extends SubsystemBase{
     public void stop() {
         state = State.DISABLED;
     }
-
- 
-
+   
     public void find_color() {
         if ( state != State.COLOR_ROTATE ) {
             state = State.COLOR_ROTATE;
@@ -65,6 +72,32 @@ public class ColorSpinner extends SubsystemBase{
     public void Periodic() {
        // seq.update();
         SmartDashboard.putNumber("ColorSpinner Distance", GetMotorDistance());
+    }
+
+    public void spinToTargetColor(){
+        colorSpinnerMotor.set(1);
+    }
+
+    public void determineTargetColor(){
+        FMSInfo fmsInfo = getFMSInfo();
+        if (fmsInfo.isInitalized) {
+            switch(fmsInfo.controlPanelTargetColor) {
+                case 'R':
+                    m_targetColor = ColorMatcher.kRedTarget;
+                    break;
+                case 'G':
+                    m_targetColor = ColorMatcher.kGreenTarget;
+                    break;
+                case 'B':
+                    m_targetColor = ColorMatcher.kBlueTarget;
+                    break;   
+                case 'Y':
+                    m_targetColor = ColorMatcher.kYellowTarget;
+                    break;                     
+                default:
+                    break;// to do, exception handling
+            }
+        }    
     }
 
     public void SpinMotor(double speed) {
@@ -128,4 +161,34 @@ public class ColorSpinner extends SubsystemBase{
             //seq.addStep(new FindColorWheelSlot(ColorWheel[index]));
         }
     }
+
+    public static FMSInfo getFMSInfo()
+	{
+        FMSInfo fmsInfo = new FMSInfo();
+        try {
+            DriverStation driveStation= DriverStation.getInstance();
+        
+            System.out.println("FMS Attached: " + driveStation.isFMSAttached());
+                
+            //FHE: How do we test "IsFMSAttached())
+            
+            String gameSpecificMessage = "";
+
+                
+            //driveStation.waitForData(); //FHE: DO WE NEED THIS?
+            fmsInfo.alliance = driveStation.getAlliance();
+            gameSpecificMessage = driveStation.getGameSpecificMessage();
+
+            fmsInfo.controlPanelTargetColor = gameSpecificMessage.trim().toUpperCase().charAt(0);
+            fmsInfo.driveStation = driveStation.getLocation();
+            fmsInfo.isAutonomous = driveStation.isAutonomous();
+            fmsInfo.isInitalized = true;
+        } 
+        
+        catch(Exception err) {
+            System.out.println("ERROR Getting FMS Info: " + err.getMessage());
+        }
+		
+		return fmsInfo;
+	}
 }

@@ -28,7 +28,7 @@ public class RobotContainer {
   private final ColorMatcher m_colorMatcherSubsystem = new ColorMatcher();
   private final ColorSpinner m_colorSpinner = new ColorSpinner();
 
-  private final ColorCommand m_autoCommand = new ColorCommand(m_colorMatcherSubsystem);
+  private final ColorCommand m_autoCommand = new ColorCommand(m_colorSpinner);
   final Joystick leftStick = new Joystick(0);
   JoystickButton colorButton = new JoystickButton(leftStick, 1);
 
