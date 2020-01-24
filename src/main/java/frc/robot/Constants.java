@@ -9,34 +9,31 @@ public class Constants {
         return instance;
     }
 
-    public double indexer_speed = 0.8;
-    public double feeder_speed = 1.0;
-    public double intake_speed = 1.0;
+ /**
+	 * Which PID slot to pull gains from. Starting 2018, you can choose from
+	 * 0,1,2 or 3. Only the first two (0,1) are visible in web-based
+	 * configuration.
+	 */
+	public static final int kSlotIdx = 0;
 
-    public double shoot_speed = 1.0;
+	/**
+	 * Talon SRX/ Victor SPX will supported multiple (cascaded) PID loops. For
+	 * now we just want the primary one.
+	 */
+	public static final int kPIDLoopIdx = 0;
 
-    public double autointake_threshold = 80;
-    public double autointake_speed = 0.4;
-    public double autointake_speed_top = 0.2;
-    public double autointake_speed_kickback = -0.4;
-    public double autointake_delay = 0.2;
-    public double colorwheel_past = 2;
+	/**
+	 * Set to zero to skip waiting for confirmation, set to nonzero to wait and
+	 * report to DS if action fails.
+	 */
+    public static final int kTimeoutMs = 30;
 
-    public double shooterP = 0.0011;
-    public double shooterI = 0;
-    public double shooterD = 4;
-    public double shooterF = 0.00017;
+	/**
+	 * PID Gains may have to be adjusted based on the responsiveness of control loop.
+     * kF: 1023 represents output value to Talon at 100%, 7200 represents Velocity units at 100% output
+     * 
+	 * 	                                    			  kP   kI   kD   kF          Iz    PeakOut */
+    //public final static Gains kGains_Velocit = new Gains( 0.25, 0.001, 20, 1023.0/7200.0,  300,  1.00);
+    public final static Gains kGains_Velocit = new Gains( 0.83*0.45, 0.54*0.83/200, 3*0.83/11/1, 0,  0,  1.00);
 
-    public double visionP = -0.04;
-    public double visionLimit = 0.5;
-
-    public double debugShooterSet = -4000;
-
-    public double colorwheel_slow = 0.2;
-    public double colorwheel_fast = 0.3;
-    public double colorwheel_ticks = 110;
-
-    public double climber_limit = 175;
-
-    public byte panelsToSpin = 26;
 }

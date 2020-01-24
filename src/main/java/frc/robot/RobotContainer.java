@@ -11,9 +11,10 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ColorCommand;
+import frc.robot.commands.ShooterCommand;
 import frc.robot.subsystems.ColorMatcher;
 import frc.robot.subsystems.ColorSpinner;
-
+import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -27,11 +28,13 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ColorMatcher m_colorMatcherSubsystem = new ColorMatcher();
   private final ColorSpinner m_colorSpinner = new ColorSpinner();
+  private final ShooterSubsystem m_shooterSubsystem =  new ShooterSubsystem();
+  private final ColorCommand m_colorCommand = new ColorCommand(m_colorSpinner);
+  private final ShooterCommand m_shooterCommand = new ShooterCommand(m_shooterSubsystem);
 
-  private final ColorCommand m_autoCommand = new ColorCommand(m_colorSpinner);
   final Joystick leftStick = new Joystick(0);
-  JoystickButton colorButton = new JoystickButton(leftStick, 1);
-
+  JoystickButton colorButton = new JoystickButton(leftStick, 3);
+  JoystickButton shooterButton = new JoystickButton(leftStick, 1);
 
 
   /**
@@ -49,8 +52,9 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    colorButton.toggleWhenPressed(m_autoCommand);
-    
+    colorButton.toggleWhenPressed(m_colorCommand);
+    //shooterButton.toggleWhenPressed(m_shooterCommand);
+    shooterButton.whenHeld(m_shooterCommand);
   }
 
 
@@ -61,6 +65,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return m_colorCommand;
   }
 }
