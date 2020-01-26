@@ -2,6 +2,9 @@ package frc.robot;
 
 public class PortMap {
     
+    public static final int LEFT_JOYSTICK_CHANNEL = 0;
+    public static final int RIGHT_JOYSTICK_CHANNEL = 1;
+
     // CAN IDs
     public static final int[] LEFT_DRIVE_CAN = {1, 2, 3};
     public static final int[] RIGHT_DRIVE_CAN = {4, 5, 6};
@@ -17,10 +20,7 @@ public class PortMap {
     public static final int TOF_SECOND_CAN = 18;
 
     //PCM IDs
-    public static final int INTAKE_SOLENOID = 0;
-    public static final int COLORWHEEL_SOLENOID = 1;
-    public static final int SHIFT_SOLENOID = 2;
-    public static final int CLIMB_SOLENOID = 3;
+
 
     //MOTORS
     public static final int COLOR_SPINNER_MOTOR = 1;

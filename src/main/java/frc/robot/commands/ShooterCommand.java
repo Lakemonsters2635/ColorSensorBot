@@ -7,11 +7,11 @@
 
 package frc.robot.commands;
 
-import frc.robot.model.FMSInfo;
-import frc.robot.subsystems.ColorSpinner;
+import frc.robot.Constants;
+import frc.robot.Robot;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.ShooterSubsystem;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class ShooterCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ShooterSubsystem m_Shooter;
+  private final  Constants m_constants;
   /**
    * Creates a new ExampleCommand.
    *
@@ -27,6 +28,7 @@ public class ShooterCommand extends CommandBase {
    */
   public ShooterCommand(ShooterSubsystem subsystem) {
     m_Shooter = subsystem;
+    m_constants =  Constants.getConstants();
  
     // Use addRequirements() here to declare subsystem dependencies.
     //addRequirements(subsystem);
@@ -42,7 +44,18 @@ public class ShooterCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Shooter.SpinShooter(1);
+
+    double motor1Adjust = RobotContainer.oi.leftStick.getRawAxis(2);
+    double motor2Adjust = RobotContainer.oi.rightStick.getRawAxis(2);
+
+    double motor1Speed = m_constants.SHOOTER_MOTOR_1_DEFAULT_SPEED + (1000 * motor1Adjust);
+    double motor2Speed = m_constants.SHOOTER_MOTOR_2_DEFAULT_SPEED + (1000 * motor2Adjust);
+
+    SmartDashboard.putNumber("Motor1 Speed", motor1Speed);
+    SmartDashboard.putNumber("Motor2 Speed", motor2Speed);
+    //System.out.println("Motor1 Speed: " + motor1Speed);
+    //System.out.println("Motor2 Speed: " + motor2Speed);
+    m_Shooter.SpinShooter(motor1Speed, motor2Speed);
   }
 
   // Called once the command ends or is interrupted.
