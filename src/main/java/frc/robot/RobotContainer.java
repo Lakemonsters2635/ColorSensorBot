@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ColorCommand;
 import frc.robot.commands.ShooterCommand;
 import frc.robot.subsystems.ColorSpinner;
@@ -37,6 +38,9 @@ public class RobotContainer {
    */
   public RobotContainer() {
     // Configure the button bindings
+    SmartDashboard.putNumber("ShooterMotor1", 500);
+    SmartDashboard.putNumber("ShooterMotor2", 500);
+
     oi = new OI();
     configureButtonBindings();
   }

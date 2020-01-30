@@ -8,6 +8,10 @@ import com.revrobotics.ColorSensorV3;
 
 
 import com.revrobotics.ColorMatchResult;
+
+import java.util.Dictionary;
+import java.util.Hashtable;
+
 import com.revrobotics.ColorMatch;
 
 public class ColorMatcher {
@@ -35,12 +39,23 @@ public class ColorMatcher {
    * Note: Any example colors should be calibrated as the user needs, these are
    * here as a basic example.
    */
-  public static final Color kBlueTarget = ColorMatch.makeColor(0.136, 0.412, 0.450);
-  public static final Color kGreenTarget = ColorMatch.makeColor(0.196, 0.557, 0.246);
-  public static final Color kRedTarget = ColorMatch.makeColor(0.475, 0.371, 0.153);
-  public static final Color kYellowTarget = ColorMatch.makeColor(0.293, 0.561, 0.144);
+  // yELlow; 0.326172  0.540283  0.133789
+  // blUE;  0.205566  0.476807  0.317383
+  // GrEEn; 0.234619  0.566406  0.198975
+  // rED; 0.384277  0.413818  0.201660
+  // Offical Values
+  // public static final Color kBlueTarget = ColorMatch.makeColor(0.136, 0.412, 0.450);
+  // public static final Color kGreenTarget = ColorMatch.makeColor(0.196, 0.557, 0.246);
+  // public static final Color kRedTarget = ColorMatch.makeColor(0.475, 0.371, 0.153);
+  // public static final Color kYellowTarget = ColorMatch.makeColor(0.293, 0.561, 0.144);
+  public static final Color kBlueTarget = ColorMatch.makeColor( 0.205566,  0.476807,  0.317383);
+  public static final Color kGreenTarget = ColorMatch.makeColor(0.234619,  0.566406,  0.198975);
+  public static final Color kRedTarget = ColorMatch.makeColor(0.384277,  0.413818,  0.201660);
+  public static final Color kYellowTarget = ColorMatch.makeColor( 0.326172,  0.540283,  0.133789);
 
   private ColorMatchResult matchedResult = new ColorMatchResult(Color.kBlack, 0);
+  public static Dictionary m_colorDictionary = new Hashtable();
+  ///public Dictionary<String, Integer> ageDictionary = new Dictionary<String, Integer>();
 
   // Rev Color threshold
   // blue 0.143, 0.427, 0.429
@@ -55,6 +70,12 @@ public class ColorMatcher {
     m_colorMatcher.addColorMatch(kYellowTarget);
 
     m_colorMatcher.setConfidenceThreshold(0.955);
+
+    m_colorDictionary.put(kBlueTarget, kRedTarget);
+    m_colorDictionary.put(kGreenTarget, kYellowTarget);
+    m_colorDictionary.put(kRedTarget, kBlueTarget);
+    m_colorDictionary.put(kYellowTarget, kGreenTarget);
+
   }
 
   public boolean isFinished(Color targetColor){
@@ -63,6 +84,7 @@ public class ColorMatcher {
     //What is the difference between comparing objects with "==" or "colorFound.equals"
     return (colorFound.equals(targetColor));
   }
+
   public Color get_color() {
     /**
      * The method GetColor() returns a normalized color value from the sensor and

@@ -1,5 +1,8 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+
 // import com.revrobotics.CANSparkMax;
 // import com.revrobotics.CANSparkMax.IdleMode;
 // import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -27,6 +30,7 @@ public class ColorSpinner extends SubsystemBase{
 
     public ColorSpinner(){
         colorSpinnerMotor = new WPI_TalonSRX(PortMap.COLOR_SPINNER_MOTOR);
+        colorSpinnerMotor.setNeutralMode(NeutralMode.Brake);
     }
 
     ColorMatcher matcher = new ColorMatcher();
@@ -76,7 +80,7 @@ public class ColorSpinner extends SubsystemBase{
     }
 
     public void spinToTargetColor(){
-        colorSpinnerMotor.set(1);
+        colorSpinnerMotor.set(0.3);
     }
 
     public boolean spinFinished(){
@@ -95,17 +99,18 @@ public class ColorSpinner extends SubsystemBase{
         if (fmsInfo.isInitalized) {
             switch(fmsInfo.controlPanelTargetColor) {
                 case 'R':
-                    m_targetColor = ColorMatcher.kRedTarget;
+                    m_targetColor = (Color)ColorMatcher.m_colorDictionary.get(ColorMatcher.kRedTarget);
                     break;
                 case 'G':
-                    m_targetColor = ColorMatcher.kGreenTarget;
+                    m_targetColor = (Color)ColorMatcher.m_colorDictionary.get(ColorMatcher.kGreenTarget);
                     break;
                 case 'B':
-                    m_targetColor = ColorMatcher.kBlueTarget;
+                    m_targetColor = (Color)ColorMatcher.m_colorDictionary.get(ColorMatcher.kBlueTarget);
+
                     break;   
                 case 'Y':
-                    m_targetColor = ColorMatcher.kYellowTarget;
-                    break;                     
+                    m_targetColor = (Color)ColorMatcher.m_colorDictionary.get(ColorMatcher.kYellowTarget);
+                break;                     
                 default:
                     break;// to do, exception handling
             }

@@ -91,8 +91,8 @@ public class ShooterSubsystem extends SubsystemBase{
     
 
     public void SpinShooter(double motor1Speed, double motor2Speed) {
-        motor1.set(ControlMode.Velocity, motor1Speed*2048/600);
-        motor2.set(ControlMode.Velocity, -motor2Speed*2048/600);
+        motor1.set(ControlMode.Velocity, -motor1Speed*2048/600);
+        motor2.set(ControlMode.Velocity, motor2Speed*2048/600);
     }
 
     public double GetMotorDistance() {

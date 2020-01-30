@@ -45,14 +45,15 @@ public class ShooterCommand extends CommandBase {
   @Override
   public void execute() {
 
-    double motor1Adjust = RobotContainer.oi.leftStick.getRawAxis(2);
-    double motor2Adjust = RobotContainer.oi.rightStick.getRawAxis(2);
+    double motor1Adjust = RobotContainer.oi.leftStick.getRawAxis(3);
+    double motor2Adjust = RobotContainer.oi.rightStick.getRawAxis(3);
 
     double motor1Speed = m_constants.SHOOTER_MOTOR_1_DEFAULT_SPEED + (1000 * motor1Adjust);
     double motor2Speed = m_constants.SHOOTER_MOTOR_2_DEFAULT_SPEED + (1000 * motor2Adjust);
 
-    SmartDashboard.putNumber("Motor1 Speed", motor1Speed);
-    SmartDashboard.putNumber("Motor2 Speed", motor2Speed);
+    //double motor1Speed =  SmartDashboard.getNumber("ShooterMotor1", 0);
+    //double motor2Speed =  SmartDashboard.getNumber("ShooterMotor2", 0);
+
     //System.out.println("Motor1 Speed: " + motor1Speed);
     //System.out.println("Motor2 Speed: " + motor2Speed);
     m_Shooter.SpinShooter(motor1Speed, motor2Speed);

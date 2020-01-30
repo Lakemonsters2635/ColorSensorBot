@@ -34,10 +34,10 @@ public class Constants {
      * 
 	 * 	                                    			  kP   kI   kD   kF          Iz    PeakOut */
  	//public final static Gains kGains_Velocit = new Gains( 0.25, 0.001, 20, 1023.0/7200.0,  300,  1.00);
-	 static final double kP = 0.5; 		// 0.3735
+	 static final double kP = 0.25; 		// 0.3735
 	 static final double kI = 0.54*0.83/200; 	// 0.002241
-	 static final double kD = 3*0.83/11/1; 	// 0.22636364
-	 static final double kF = 0.05; 			//
+	 static final double kD = 0.003; 	// 0.22636364
+	 static final double kF = 0.047; 			//
 	 //public final static Gains kGains_Velocit = new Gains( kP, kI, kD, kF,  0,  1.00);
 	 public final static Gains kGains_Velocit = new Gains(kP, 0.0, 0.0, kF,  0,  1.00);
 
