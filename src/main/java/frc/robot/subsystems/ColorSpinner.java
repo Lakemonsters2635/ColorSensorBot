@@ -80,7 +80,7 @@ public class ColorSpinner extends SubsystemBase{
     }
 
     public void spinToTargetColor(){
-        colorSpinnerMotor.set(0.3);
+        colorSpinnerMotor.set(0.2);
     }
 
     public boolean spinFinished(){

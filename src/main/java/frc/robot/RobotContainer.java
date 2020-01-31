@@ -12,8 +12,10 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ColorCommand;
 import frc.robot.commands.ShooterCommand;
+import frc.robot.commands.VisionLightCommand;
 import frc.robot.subsystems.ColorSpinner;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.Vision;
 import edu.wpi.first.wpilibj2.command.Command;
 
 
@@ -28,7 +30,9 @@ public class RobotContainer {
   private final ColorSpinner m_colorSpinner = new ColorSpinner();
   private final ShooterSubsystem m_shooterSubsystem =  new ShooterSubsystem();
   private final ColorCommand m_colorCommand = new ColorCommand(m_colorSpinner);
+  public static final Vision vision = new Vision();
   private final ShooterCommand m_shooterCommand = new ShooterCommand(m_shooterSubsystem);
+  private final VisionLightCommand m_visionLightCommand = new VisionLightCommand();
  public static OI oi;
 
 
@@ -54,6 +58,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     oi.colorButton.toggleWhenPressed(m_colorCommand);
     oi.shooterButton.whenHeld(m_shooterCommand);
+    oi.visionButton.whenHeld(m_visionLightCommand);
   }
 
 
