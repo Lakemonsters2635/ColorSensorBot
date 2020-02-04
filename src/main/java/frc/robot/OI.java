@@ -53,6 +53,6 @@ public class OI {
   JoystickButton colorButton = new JoystickButton(leftStick, 3);
   JoystickButton shooterButton = new JoystickButton(leftStick, 1);
   JoystickButton visionButton = new JoystickButton(leftStick, 2);
-
+  
 
 }

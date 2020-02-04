@@ -58,7 +58,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     oi.colorButton.toggleWhenPressed(m_colorCommand);
     oi.shooterButton.whenHeld(m_shooterCommand);
-    oi.visionButton.whenHeld(m_visionLightCommand);
+    //oi.visionButton.whenHeld(m_visionLightCommand);
+    oi.visionButton.toggleWhenPressed(m_visionLightCommand);
   }
 
 

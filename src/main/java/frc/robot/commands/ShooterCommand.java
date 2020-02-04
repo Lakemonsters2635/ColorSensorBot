@@ -21,6 +21,7 @@ public class ShooterCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ShooterSubsystem m_Shooter;
   private final  Constants m_constants;
+  private double targetDistance = 0;
   /**
    * Creates a new ExampleCommand.
    *
@@ -44,7 +45,8 @@ public class ShooterCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
+    targetDistance = RobotContainer.vision.getXDistance();
+    System.out.println("target distance: " + targetDistance);
     double motor1Adjust = RobotContainer.oi.leftStick.getRawAxis(3);
     double motor2Adjust = RobotContainer.oi.rightStick.getRawAxis(3);
 

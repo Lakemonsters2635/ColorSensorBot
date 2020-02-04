@@ -37,7 +37,7 @@ public class Vision extends Subsystem {
 		pipeline = table.getEntry("pipeline");
 		if (pipeline != null)
 		{
-			System.out.println("pipeline:" + pipeline) ;
+			//System.out.println("pipeline:" + pipeline) ;
 			pipeline.setNumber(0);
 		}
 		
@@ -53,6 +53,10 @@ public class Vision extends Subsystem {
 		camMode.setDouble(1);
 	}
 	
+	public boolean isLightOn() {
+		boolean isOn = (ledMode.getDouble(0) == 0);
+		return isOn;
+	}
 	public void ledOff(){
 		ledMode.setDouble(1);
 	}
@@ -98,7 +102,7 @@ public class Vision extends Subsystem {
 	}
 
 	public double getArea() {
-		System.out.println(area);
+		//System.out.println(area);
 		return area;
 	}
 	public double printXAngle() {
