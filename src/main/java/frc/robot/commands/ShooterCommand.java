@@ -49,9 +49,13 @@ public class ShooterCommand extends CommandBase {
     double motor1Speed = m_constants.SHOOTER_MOTOR_1_DEFAULT_SPEED;
     double motor2Speed = m_constants.SHOOTER_MOTOR_2_DEFAULT_SPEED;
 
+    //QUESTION: WHAT IF THE DRIVER WANTS TO SHOOT WITHOUT THE CAMERA?
+    //HOW WOULD WE FIX THIS?
+    RobotContainer.vision.data();
     boolean visionTargetFound = RobotContainer.vision.targetExists();
     if (visionTargetFound) {
       //FHE:TODO: DETERMINE MOTOR SPEED BASED ON DISTANCE
+
       targetDistance = RobotContainer.vision.getXDistance();
       System.out.println("target distance: " + targetDistance);
       motor1Speed = computeShooterSpeedFromTargetDistance(targetDistance);
