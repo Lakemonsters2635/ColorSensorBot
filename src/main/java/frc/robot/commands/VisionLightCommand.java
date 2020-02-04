@@ -54,14 +54,14 @@ public class VisionLightCommand extends CommandBase {
     // Called once after isFinished returns true
     protected void end() {
         //Robot.vision.driveMode();
-        if (RobotContainer.vision.isLightOn()) {
-            RobotContainer.vision.ledOff();
-            System.out.println("END light is on. Turn off");
-        }
-        else {
-            RobotContainer.vision.ledOn();
-            System.out.println("END light is off. Turn on");
-        }
+        // if (RobotContainer.vision.isLightOn()) {
+        //     RobotContainer.vision.ledOff();
+        //     System.out.println("END light is on. Turn off");
+        // }
+        // else {
+        //     RobotContainer.vision.ledOn();
+        //     System.out.println("END light is off. Turn on");
+        // }
     }
 
   // Returns true when the command should end.

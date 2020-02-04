@@ -45,13 +45,26 @@ public class ShooterCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    targetDistance = RobotContainer.vision.getXDistance();
-    System.out.println("target distance: " + targetDistance);
-    double motor1Adjust = RobotContainer.oi.leftStick.getRawAxis(3);
-    double motor2Adjust = RobotContainer.oi.rightStick.getRawAxis(3);
 
-    double motor1Speed = m_constants.SHOOTER_MOTOR_1_DEFAULT_SPEED + (1000 * motor1Adjust);
-    double motor2Speed = m_constants.SHOOTER_MOTOR_2_DEFAULT_SPEED + (1000 * motor2Adjust);
+    double motor1Speed = m_constants.SHOOTER_MOTOR_1_DEFAULT_SPEED;
+    double motor2Speed = m_constants.SHOOTER_MOTOR_2_DEFAULT_SPEED;
+
+    boolean visionTargetFound = RobotContainer.vision.targetExists();
+    if (visionTargetFound) {
+      //FHE:TODO: DETERMINE MOTOR SPEED BASED ON DISTANCE
+      targetDistance = RobotContainer.vision.getXDistance();
+      System.out.println("target distance: " + targetDistance);
+      motor1Speed = computeShooterSpeedFromTargetDistance(targetDistance);
+      motor2Speed = motor1Speed/2; //FOR TOP SPIN
+    }
+
+
+    
+    //THE FOLLOWING COMMENTED OUT CODE USES THE JOYSTICK SLIDERS TO ADJUST MOTOR SPEED
+    // double motor1Adjust = RobotContainer.oi.leftStick.getRawAxis(3);
+    // double motor2Adjust = RobotContainer.oi.rightStick.getRawAxis(3);
+    // motor1Speed = motor1Speed + (1000 * motor1Adjust);
+    // motor2Speed = motor1Speed + (1000 * motor2Adjust);
 
     //double motor1Speed =  SmartDashboard.getNumber("ShooterMotor1", 0);
     //double motor2Speed =  SmartDashboard.getNumber("ShooterMotor2", 0);
@@ -59,6 +72,21 @@ public class ShooterCommand extends CommandBase {
     //System.out.println("Motor1 Speed: " + motor1Speed);
     //System.out.println("Motor2 Speed: " + motor2Speed);
     m_Shooter.SpinShooter(motor1Speed, motor2Speed);
+  }
+
+  public double computeShooterSpeedFromTargetDistance(double targetDistance) {
+    //FHE: TODO See google sheet with data.
+    //https://docs.google.com/spreadsheets/d/1hFAy2s6HSixSz0b9KfWV3SxeLQ4VlyDaA7yp4tblp4I/edit#gid=0
+    // Distance	motor 1 	motor 2
+    // 301.75	  2,350	    1,225
+    // 280	    2,350	    1,225
+    // 250	    2,250	    1,125
+    // 277	    2,400	    1200
+    // 146 9/16	2100    	1050
+    // 186	    2250    	1125
+    // 211.25	  2300    	1150
+
+    return m_constants.SHOOTER_MOTOR_1_DEFAULT_SPEED;
   }
 
   // Called once the command ends or is interrupted.

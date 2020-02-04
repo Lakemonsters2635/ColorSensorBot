@@ -32,7 +32,7 @@ public class RobotContainer {
   private final ColorCommand m_colorCommand = new ColorCommand(m_colorSpinner);
   public static final Vision vision = new Vision();
   private final ShooterCommand m_shooterCommand = new ShooterCommand(m_shooterSubsystem);
-  private final VisionLightCommand m_visionLightCommand = new VisionLightCommand(vision);
+  private final VisionLightCommand m_visionLightCommand = new VisionLightCommand();
  public static OI oi;
 
 
