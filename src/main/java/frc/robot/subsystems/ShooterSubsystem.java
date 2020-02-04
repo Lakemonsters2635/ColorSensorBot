@@ -92,8 +92,8 @@ public class ShooterSubsystem extends SubsystemBase{
 
     public void SpinShooter(double motor1Speed, double motor2Speed) {
         //DON'T GO OVER 3,000;
-        motor1Speed = Math.min(3000, motor1Speed);
-        motor2Speed = Math.min(3000, motor2Speed);
+        motor1Speed = Math.min(5000, Math.abs(motor1Speed));
+        motor2Speed = Math.min(5000, Math.abs(motor2Speed));
 
         motor1.set(ControlMode.Velocity, -motor1Speed*2048/600);
         motor2.set(ControlMode.Velocity, motor2Speed*2048/600);
