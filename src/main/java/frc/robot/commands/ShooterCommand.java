@@ -60,6 +60,10 @@ public class ShooterCommand extends CommandBase {
       System.out.println("target distance: " + targetDistance);
       motor1Speed = computeShooterSpeedFromTargetDistance(targetDistance);
       motor2Speed = motor1Speed/2; //FOR TOP SPIN
+      System.out.println("Adjusted motor1 speed: " + motor1Speed);
+    } else {
+      System.out.println("target not found");
+
     }
 
 
@@ -89,8 +93,8 @@ public class ShooterCommand extends CommandBase {
     // 146 9/16	2100    	1050
     // 186	    2250    	1125
     // 211.25	  2300    	1150
-
-    return m_constants.SHOOTER_MOTOR_1_DEFAULT_SPEED;
+    double adjustedMotorSpeed = 1.441875 * targetDistance + 1943.063021;
+    return adjustedMotorSpeed;
   }
 
   // Called once the command ends or is interrupted.

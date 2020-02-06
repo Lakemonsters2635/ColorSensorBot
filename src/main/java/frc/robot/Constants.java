@@ -45,6 +45,6 @@ public class Constants {
 	 public final static double SHOOTER_MOTOR_2_DEFAULT_SPEED = 1500;
 	 public static final double TARGET_HEIGHT =81.25-36.5; //height to center target - camera height
   	//public static final double CAMERA_ANGLE = -1*Math.atan(TARGET_HEIGHT/183);
-  	public static final double CAMERA_ANGLE = Math.toRadians(21.2);
+  	public static final double CAMERA_ANGLE = Math.toRadians(10.2);
  
 }
