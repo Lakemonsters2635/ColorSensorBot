@@ -8,10 +8,8 @@
 package frc.robot.commands;
 
 import frc.robot.model.FMSInfo;
-import frc.robot.subsystems.ColorMatcher;
 import frc.robot.subsystems.ColorSpinner;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -20,8 +18,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class ColorCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ColorSpinner m_colorSpinner;
-  private FMSInfo m_fmsInfo;
-  private Color m_targetColor;
+
   private boolean m_CommandInitializationFailed = false;
   /**
    * Creates a new ExampleCommand.
@@ -64,40 +61,10 @@ public class ColorCommand extends CommandBase {
     }
 
     return m_colorSpinner.spinFinished();
-    // boolean colorFound =  m_colorSpinner.isFinished(m_targetColor);
-    // if (colorFound) {
-    //   System.out.println("Color '" +  m_fmsInfo.controlPanelTargetColor + "' found.");
-    // }
-    // return colorFound;
+ 
   }
 
 
-  public static FMSInfo getFMSInfo()
-	{
-    FMSInfo fmsInfo = new FMSInfo();
-    try {
-      DriverStation driveStation= DriverStation.getInstance();
-      
-      System.out.println("FMS Attached: " + driveStation.isFMSAttached());
-        
-      //FHE: How do we test "IsFMSAttached())
-    
-      String gameSpecificMessage = "";
-
-        
-      //driveStation.waitForData(); //FHE: DO WE NEED THIS?
-      fmsInfo.alliance = driveStation.getAlliance();
-      gameSpecificMessage = driveStation.getGameSpecificMessage();
-
-      fmsInfo.controlPanelTargetColor = gameSpecificMessage.trim().toUpperCase().charAt(0);
-      fmsInfo.driveStation = driveStation.getLocation();
-      fmsInfo.isAutonomous = driveStation.isAutonomous();
-      fmsInfo.isInitalized = true;
-    } catch(Exception err) {
-      System.out.println("ERROR Getting FMS Info: " + err.getMessage());
-    }
-		
-		return fmsInfo;
-	}
+  
 
 }

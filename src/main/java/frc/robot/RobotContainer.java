@@ -11,9 +11,11 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ColorCommand;
+import frc.robot.commands.PowerCellDetectorCommand;
 import frc.robot.commands.ShooterCommand;
 import frc.robot.commands.VisionLightCommand;
 import frc.robot.subsystems.ColorSpinner;
+import frc.robot.subsystems.DetectorSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.Vision;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -29,11 +31,13 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ColorSpinner m_colorSpinner = new ColorSpinner();
   private final ShooterSubsystem m_shooterSubsystem =  new ShooterSubsystem();
+  private final DetectorSubsystem m_detectorSubsystem = new DetectorSubsystem();
   private final ColorCommand m_colorCommand = new ColorCommand(m_colorSpinner);
   public static final Vision vision = new Vision();
   private final ShooterCommand m_shooterCommand = new ShooterCommand(m_shooterSubsystem);
   private final VisionLightCommand m_visionLightCommand = new VisionLightCommand();
- public static OI oi;
+ private final PowerCellDetectorCommand m_powerCellCommand = new PowerCellDetectorCommand(m_detectorSubsystem);
+  public static OI oi;
 
 
 
@@ -60,6 +64,7 @@ public class RobotContainer {
     oi.shooterButton.whenHeld(m_shooterCommand);
     //oi.visionButton.whenHeld(m_visionLightCommand);
     oi.visionButton.toggleWhenPressed(m_visionLightCommand);
+    oi.powerCellButton.whenHeld(m_powerCellCommand);
   }
 
 

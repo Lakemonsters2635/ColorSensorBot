@@ -41,7 +41,7 @@ public class Constants {
 	 //public final static Gains kGains_Velocit = new Gains( kP, kI, kD, kF,  0,  1.00);
 	 public final static Gains kGains_Velocit = new Gains(kP, 0.0, 0.0, kF,  0,  1.00);
 
-	 public final static double SHOOTER_MOTOR_1_DEFAULT_SPEED = 1500;
+	 public final static double SHOOTER_MOTOR_1_DEFAULT_SPEED = 2500;
 	 public final static double SHOOTER_MOTOR_2_DEFAULT_SPEED = 1500;
 	 public static final double TARGET_HEIGHT =81.25-36.5; //height to center target - camera height
   	//public static final double CAMERA_ANGLE = -1*Math.atan(TARGET_HEIGHT/183);
